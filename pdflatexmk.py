@@ -34,7 +34,7 @@ args = sys.argv[1:]
 if not output_arg_specified:
     args.insert(0, OUTPUT_ARGUMENT + output_dir)
 
-command = 'pdflatexmk %s' % ' '.join(args)
+command = '~/Library/TeXShop/Engines/pdflatexmk.engine %s' % ' '.join(args)
 
 print '%s Executing: %s' % (sys.argv[0], command)
 
