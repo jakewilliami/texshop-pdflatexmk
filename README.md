@@ -1,4 +1,4 @@
-TexShop pdflatexmk Command
+TexShop `pdflatexmk` Command
 ========================
 
 TexShop is a program for Mac OS X which compiles LaTex files (.tex) into pdf files. When it does this, by default it created a .log and .aux file for every source file in your LaTeX document, this gets annoying with large projects.
