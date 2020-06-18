@@ -8,25 +8,40 @@ This repository holds a fork from [texshop-pdflatex](https://github.com/marcuswh
 Installing the Script
 ---------------------
 
-You can put the script anywhere, but the solution I am following suggests, putting it here:
+You can put the script anywhere, but the solution I am following suggests, putting it here in `/Library/TeX/Root/bin/`.  You will need to make sure that everyone has executable permissions on the file. If TeXShop cannot execute the file it will complain.  To do this via the command line, simply run
+```
+cd /Library/TeX/Root/bin/ && \
+curl -s https://raw.githubusercontent.com/jakewilliami/texshop-pdflatexmk/master/pdflatexmk.py | sudo tee pdflatexmk.py > /dev/null && \
+sudo chmod +x pdflatexmk.py && \
+cd - > /dev/null && \
+echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatexmk.py\` installed successfully.\u001b[0;38m"
+```
+Next, you will need to ensure TeXShop has a way to access this script.  To do this, you need to create a new engine:
+```
+cd ~/Library/TeXShop/Engines/ && \
+curl -s https://raw.githubusercontent.com/jakewilliami/texshop-pdflatexmk/master/pdflatexmk.py.engine > pdflatexmk.py.engine && \
+sudo chmod +x pdflatexmk.py.engine && \
+cd - > /dev/null && \
+echo -e "\u001b[1;38;5;2mLaTeX compiler \`pdflatexmk.py.engine\` installed successfully.\u001b[0;38m"
+```
 
-    /Library/TeX/Root/bin/pdflatexmk.py
+Now you need to **restart TeXShop** and enter the following [shebang](https://www.wikiwand.com/en/Shebang_(Unix)) at the top of your `.tex` project:
+```
+% !TEX TS-program = pdflatexmk.py
+```
 
-Make sure that everyone has executable permissions on the file, if TexShop cannot execute the file it will complain:
+And everything will now work!  
 
-    sudo chmod +x /Library/TeX/Root/bin/pdflatexmk.py
 
-Next change TexShop's preferences to use this script instead, go to **Preferences** and then the **Engine** tab. Under the section entitles **pdfTeX** change the **Latex (default: pdflatex)** box to use the new script.
+Adjusting Shell Options
+-----------------------
 
-For example if before it looked like this:
+The default options for this script to be run with is
+```
+--file-line-error --synctex=1 --enable-write18 "${1}"
+```
+To change these you will need to edit the file you just downloaded, at `~/Library/TeXShop/Engines/pdflatexmk.py.engine`.
 
-    pdflatex --file-line-error --shell-escape --synctex=1
-
-And afterwards it should look like this:
-
-    /Library/TeX/Root/bin/pdflatexmk.py --file-line-error --shell-escape --synctex=1
-
-Any arguments passed to the new `pdflatex.py` script will be passed on the real `pdflatex` command which is subsequently called.
 
 Setting the Output Directory
 ----------------------------
