@@ -34,7 +34,7 @@ args = sys.argv[1:]
 if not output_arg_specified:
     args.insert(0, OUTPUT_ARGUMENT + output_dir)
 
-command = 'pdflatex %s' % ' '.join(args)
+command = 'pdflatexmk %s' % ' '.join(args)
 
 print '%s Executing: %s' % (sys.argv[0], command)
 
