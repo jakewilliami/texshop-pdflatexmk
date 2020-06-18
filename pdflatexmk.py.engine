@@ -1,0 +1,5 @@
+#! /bin/bash
+
+PATH=/Library/TeX/Root/bin/:Library/TeX/texbin:/usr/local/bin:${PATH}
+
+pdflatexmk.py --build-directory=/tmp/ --file-line-error --synctex=1 --enable-write18 "${1}"
